@@ -6,7 +6,7 @@ protected:
 public:
     virtual void encryptIt(std::string) = 0;
 };
-// Klasa dla szyfru cezara
+// Caesar class
 class Caesar :public Cipher {       
 public:
     void encryptIt(std::string inputString) override  {
@@ -16,7 +16,7 @@ public:
         std::cout << result << std::endl;
     }
 };
-// Klasa dla szyfru odwracającego
+// Reversing class
 class Reversing :public Cipher{
 public:
     void encryptIt(std::string inputString) override {
@@ -26,7 +26,7 @@ public:
         std::cout << result << std::endl;
     }
 };
-// Klasa dla szyfru wymieniającego
+// Exchange class
 class Exchange :public Cipher {   
 public:
     void encryptIt(std::string inputString) override {
@@ -47,25 +47,25 @@ public:
         std::cout << result << std::endl;
     }
 };
-// Klasa zarządzająca
+// Basic class
 class Start {
 private:
     Cipher* polymorphicPointer{};
     char choice = NULL;
 public:
-    char whichCipher() { // wybor szyfru, zwraca litere reprezentujaca szyfr// c-cezar, o-odwracanie, w-wymiana
+    char whichCipher() { // cipher choosing // c-ceasar, o-reversing, w-exchange
         char choice = NULL;
         std::cin >> choice;
         return std::tolower(choice);
     }
-    std::string input() { // tekst wejsciowy
+    std::string input() { // output text
         std::cout << std::endl << "Wpisz napis do zaszyfrowania: ";
         std::string inputString, lowerCased;
         std::cin >> inputString;
         const int inputLength = inputString.length();
         for (int i = 0; i < inputLength; i++)
-            lowerCased += std::tolower(inputString[i]);//zamiana całego tekstu na małe litery
-        if (true) { //sprawdzenie czy w podanym tekscie znajduja sie nieprawidlowe znaki
+            lowerCased += std::tolower(inputString[i]);//lowercasing whole input string
+        if (true) { //checking is there any wrong character
             for (int i = 0; i < inputLength; i++) {
                 if (!isalpha(lowerCased[i])) {
                     std::cout << "Nieprawidlowy tekst! Sprobuj wpisac tylko litery" << std::endl << std::endl;
@@ -76,7 +76,7 @@ public:
         std::cout << "Twoj zaszyfrowany napis: ";
         return lowerCased;
     }
-    void encrypt(Cipher* pointer, std::string s) { // metoda ustawiająca wskaźnik
+    void encrypt(Cipher* pointer, std::string s) { // setting polimorphic pointer
         pointer->encryptIt(s);
         std::cout << std::endl;
     }
